@@ -20,22 +20,25 @@ if (is_array($_POST) && sizeof($_POST) > 0) {
 		$mysqli->query($sql) or die($mysqli->error);
 
 		//send confirmation email
+		// $mail = new PHPMailer();
 		setupMailer();
 
+		$mail->IsHTML(true);
 		$mail->From = $adminUser->email; // the email field of the form
-		$mail->FromName = 'NFL Pick \'Em Admin'; // the name field of the form
+		$mail->FromName = SITE_NAME . ' Admin'; // the name field of the form
 
 		$mail->AddAddress($_POST['email']); // the form will be sent to this address
-		$mail->Subject = 'NFL Pick \'Em Password'; // the subject of email
+		$mail->Subject = SITE_NAME . ' Password'; // the subject of email
 
 		// html text block
-		$msg = '<p>Your new password for NFL Pick \'Em has been generated.  Your userName is: ' . $result['userName'] . '</p>' . "\n\n";
+		$msg = '<p>Your new password for ' . SITE_NAME . ' has been generated.  Your userName is: ' . $result['userName'] . '</p>' . "\n\n";
 		$msg .= '<p>Your new password is: ' . $password . '</p>' . "\n\n";
 		$msg .= '<a href="' . SITE_URL . 'login.php">Click here to sign in</a>.</p>';
 
 		$mail->Body = $msg;
 		$mail->AltBody = strip_tags($msg);
 
+		// $mail->Send();
 		if (!$mail->send()) {
 		   echo "Mailer Error: " . $mail->ErrorInfo;
 		} else {
@@ -43,6 +46,8 @@ if (is_array($_POST) && sizeof($_POST) > 0) {
 			exit;
 		}
 
+		header('Location: password_reset.php?reset=true');
+		exit;
 	} else {
 		$display = '<div class="responseError">No account matched, please try again.</div><br/>';
 	}
@@ -54,8 +59,7 @@ if (is_array($_POST) && sizeof($_POST) > 0) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>NFL Pick 'Em</title>
-
+	<title><?php echo SITE_NAME . ' ' . SEASON_YEAR;?></title>
 	<base href="<?php echo SITE_URL; ?>" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
 	<!--link rel="stylesheet" type="text/css" media="all" href="css/all.css" /-->

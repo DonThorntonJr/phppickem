@@ -21,7 +21,6 @@ if(empty($_SESSION['logged']) || $_SESSION['logged'] !== 'yes') {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title><?php echo SITE_NAME . ' ' . SEASON_YEAR;?></title>
-
 	<base href="<?php echo SITE_URL; ?>" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
 	<!--link rel="stylesheet" type="text/css" media="all" href="css/all.css" /-->

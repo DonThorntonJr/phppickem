@@ -12,6 +12,11 @@ if ($user->userName == 'admin') {
 	<h1>Welcome, Admin!</h1>
 	<p></p>
 <?php
+	if (ENABLE_DONATE_FOOTER) {
+		echo  "<p><b>If you feel that the work I've done has value to you,</b> I would greatly appreciate a paypal donation (click button below).  I have spent many hours working on this project, and I will continue its development as I find the time.  Again, I am very grateful for any and all contributions.</p>";
+
+		include('includes/donate_button.inc.php');
+	}
 } else {
 	if ($weekExpired) {
 		//current week is expired, show message
@@ -84,7 +89,6 @@ include('includes/column_right.php');
 				echo '			<div class="bg-info" style="color: green;"><b>All picks entered.</b><br /><a href="entry_form.php?week=' . $row['weekNum'] . '">Change your picks &raquo;</a></div>' . "\n";
 			}
 		}
-
 		echo '			</div>'."\n";
 		echo '		</div>'."\n";
 		$i++;
@@ -98,3 +102,4 @@ include('includes/column_right.php');
 }
 
 require('includes/footer.php');
+?>

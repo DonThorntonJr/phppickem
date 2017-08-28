@@ -45,7 +45,6 @@
 		'Oakland'       => 'OAK' ,
 		'Philadelphia'  => 'PHI' ,
 		'Pittsburgh'    => 'PIT' ,
-
 		'Seattle'       => 'SEA' ,
 		'San_Francisco' => 'SF' ,
 		'Tampa_Bay'     => 'TB' ,

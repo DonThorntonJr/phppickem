@@ -1,7 +1,7 @@
 <p class="skip2content"><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#content">Skip to content &raquo;</a></p>
 
 <div class="bg-primary">
-	<b>Current Time (<?php echo SERVER_TIMEZONE_ABBR; ?>) &nbsp; :</b> </br> <?php echo date('Y-m-d'); ?> &nbsp; -  &nbsp; <span id="jclock1"></span>
+	<b>Current Time (<?php echo SERVER_TIMEZONE_ABBR; ?>) &nbsp; :</b> &nbsp; <?php echo date('Y-m-d'); ?> &nbsp; -  &nbsp; <span id="jclock1"></span>
 	<script type="text/javascript">
 	$(function($) {
 		var optionsEST = {
@@ -42,13 +42,6 @@ $('#firstGame').countdown({until: firstGameTime, description: 'until first game 
 <?php
 }
 if (!$weekExpired) {
-
-// $week = (int)$_GET['week'];
-// if (empty($week)) {
-// 	//get current week
-// 	$week = (int)getCurrentWeek();
-// }
-
 ?>
 <div id="picksLocked" class="countdown bg-danger"></div>
 <script type="text/javascript">

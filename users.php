@@ -65,6 +65,7 @@ switch ($action) {
 				$sql .= "set firstname = '" . $firstname . "', lastname = '" . $lastname . "', email = '" . $email . "', userName = '" . $userName . "' , isAdmin = '" . $isAdmin . "' ";
 				$sql .= "where userID = " . $userID . ";";
 				$mysqli->query($sql) or die('error updating user');
+
 				$display = '<div class="responseOk">User ' . $userName . ' Updated</div><br/>';
 
 				// Hacks, to update password, un-comment this and password fields, comment above sql query

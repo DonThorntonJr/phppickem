@@ -26,11 +26,9 @@ if ($_POST['action'] == 'Submit') {
 		while ($row = $query->fetch_assoc()) {
 			$sql = "delete from " . DB_PREFIX . "picks where userID = " . $user->userID . " and gameID = " . $row['gameID'];
 			$mysqli->query($sql) or die('Error deleting picks: ' . $mysqli->error);
-
 			if (!empty($_POST['game' . $row['gameID']])) {
 				$sql = "insert into " . DB_PREFIX . "picks (userID, gameID, pickID) values (" . $user->userID . ", " . $row['gameID'] . ", '" . $_POST['game' . $row['gameID']] . "')";
 				$mysqli->query($sql) or die('Error inserting picks: ' . $mysqli->error);
-
 				$pickText .= $_POST['game' . $row['gameID']] . " ";
 				if ($row['gameID'] == $bestBet)
 					$bbTeam = $_POST['game' . $row['gameID']];
@@ -38,7 +36,6 @@ if ($_POST['action'] == 'Submit') {
 		}
 	}
 	$query->free;
-
 	if (ENABLE_PICK_EMAIL) {
 		// Send notification email
 		$mail = new PHPMailer();
@@ -55,7 +52,6 @@ if ($_POST['action'] == 'Submit') {
 		$mail->Body = "Picks: $pickText, Best Bet = $bbTeam";
 		$mail->Send();
 	}
-
 	header('Location: results.php?week=' . $_POST['week']);
 	exit;
 } else {
@@ -83,18 +79,17 @@ include('includes/header.php');
 					allChecked = false;
 				}
 			}
-	  }
-
-	  if (!allChecked) {
+		}
+		if (!allChecked) {
 			return confirm('One or more picks are missing for the current week.  Do you wish to submit anyway?');
 		}
 		if (document.getElementById('tiebreaker').value == ""){
-      return confirm('You have not entered a tiebreaker score!  Do you want to submit anyway?');
-    }
-    if(document.getElementById('survivor').value === "") {
-    	alert('You have not entered a survivor pick');
-    	return false;
-    }
+			return confirm('You have not entered a tiebreaker score!  Do you want to submit anyway?');
+	}
+		if(document.getElementById('survivor').value === "") {
+			alert('You have not entered a survivor pick');
+			return false;
+		}
 		return true;
 	}
 	function radioIsChecked(elmName) {
@@ -107,17 +102,17 @@ include('includes/header.php');
 		return false;
 	}
 	function checkRadios() {
-	  $('input[type=radio]').each(function(){
-	   //alert($(this).attr('checked'));
-	    var targetLabel = $('label[for="'+$(this).attr('id')+'"]');
-	    console.log($(this).attr('id')+': '+$(this).is(':checked'));
-	    if ($(this).is(':checked')) {
-	      //console.log(targetLabel);
-	     targetLabel.addClass('highlight');
-	    } else {
-	      targetLabel.removeClass('highlight');
-	    }
-	  });
+		$('input[type=radio]').each(function(){
+		//alert($(this).attr('checked'));
+		var targetLabel = $('label[for="'+$(this).attr('id')+'"]');
+		console.log($(this).attr('id')+': '+$(this).is(':checked'));
+		if ($(this).is(':checked')) {
+			//console.log(targetLabel);
+		targetLabel.addClass('highlight');
+		} else {
+			targetLabel.removeClass('highlight');
+		}
+	});
 	}
 	$(function() {
 		checkRadios();
@@ -164,26 +159,25 @@ include('includes/column_right.php');
 	<?php
 	//get existing picks
 	$picks = getUserPicks($week, $user->userID);
-	$survivorPicks = getSurvivorPrevPicks($user->userID);
+	# $survivorPicks = getSurvivorPrevPicks($user->userID);
 	$survivorPick = "";
-
-        //get tie-breaker status
+	//get tie-breaker status
 	$sql = "select * from " . DB_PREFIX . "picksummary where weekNum = " . $week . " and userID = " . $user->userID . ";";
 	$query = $mysqli->query($sql) or die('Error getting tie-breaker status: ' . $mysqli->error);
 	if ($query->num_rows > 0) {
 		$result = $query->fetch_assoc();
-                $tieBreakerPoints = (int)$result['tieBreakerPoints'];
-        } else {
-                $tieBreakerPoints = DEFAULT_TIEBREAKER_POINTS;
-        }
+		$tieBreakerPoints = (int)$result['tieBreakerPoints'];
+	} else {
+		$tieBreakerPoints = DEFAULT_TIEBREAKER_POINTS;
+	}
 	//initial db sets tiBreakerPoints=0 so the following is needed to set default points
 	//a user can still set this to 0 since we don't check after a number is entered
 	//if they attempt to change their points/picks again the default value will
 	//show the default from config.php and if submitted it will be set to the default
-        if ($tieBreakerPoints == 0 OR $tieBreakerPoints == "") {
+	if ($tieBreakerPoints == 0 OR $tieBreakerPoints == "") {
 		$tieBreakerPoints = DEFAULT_TIEBREAKER_POINTS;
 	}
-$pickSummary = get_pick_summary($user->userID, $week);
+	$pickSummary = get_pick_summary($user->userID, $week);
 	//get show picks status
 	$sql = "select * from " . DB_PREFIX . "picksummary where weekNum = " . $week . " and userID = " . $user->userID . ";";
 	$query = $mysqli->query($sql);
@@ -224,6 +218,7 @@ $pickSummary = get_pick_summary($user->userID, $week);
 			$rowclass = (($i % 2 == 0) ? ' class="altrow"' : '');
 			echo '				<div class="matchup">' . "\n";
 			echo '					<div class="row bg-row1">'."\n";
+			// if (!empty($homeScore) || !empty($visitorScore)) {
 			if (strlen($row['homeScore']) > 0 && strlen($row['visitorScore']) > 0) {
 				//if score is entered, show score
 				$scoreEntered = true;
@@ -242,13 +237,11 @@ $pickSummary = get_pick_summary($user->userID, $week);
 			}
 			echo '					</div>'."\n";
 			echo '					<div class="row versus">' . "\n";
-
 			echo '						<div class="col-xs-1 center">' . "\n";
 			if (ENABLE_BEST_BET) {
 				echo '							<label for="bb' . $row['gameID'] . '" class="label-for-check"><div class="bbLabel" onclick="document.entryForm.bb'.$row['gameID'].'[0].checked=true;"><p>BB</p></div>'. "\n";
 			}
 			echo '						</div>' . "\n";
-
 			echo '						<div class="col-xs-4">'."\n";
 			echo '							<label for="' . $row['gameID'] . $visitorTeam->teamID . '" class="label-for-check"><div class="team-logo"><img src="images/logos/'.$visitorTeam->teamID.'.svg" onclick="document.entryForm.game'.$row['gameID'].'[0].checked=true;" /></div></label>' . "\n";
 			echo '						</div>'."\n";
@@ -260,14 +253,12 @@ $pickSummary = get_pick_summary($user->userID, $week);
 			echo '					</div>' . "\n";
 			if (!$row['expired'] || ENABLE_LATE_PICKS) {
 				echo '					<div class="row bg-row2">'."\n";
-
 				echo '						<div class="col-xs-1 center">' . "\n";
 				if (ENABLE_BEST_BET) {
 					$checkedText = (($pickSummary['bestBet'] == $row['gameID']) ? ' checked="checked"' : '');
 					echo '							<input type="radio" name="bestBet" value="' . $row['gameID'] . '" id="bb' . $row['gameID'] . '"' . $checkedText . '/>' . "\n";
 				}
 				echo '						</div>' . "\n";
-
 				echo '						<div class="col-xs-4 center">'."\n";
 				echo '							<input type="radio" class="check-with-label" name="game' . $row['gameID'] . '" value="' . $visitorTeam->teamID . '" id="' . $row['gameID'] . $visitorTeam->teamID . '"' . (($picks[$row['gameID']]['pickID'] == $visitorTeam->teamID) ? ' checked' : '') . ' />'."\n";
 				echo '						</div>'."\n";
@@ -288,7 +279,6 @@ $pickSummary = get_pick_summary($user->userID, $week);
 				$homeSpreadStr = "";
 				$awaySpreadStr = "";
 			}
-
 			echo '					<div class="row bg-row3">'."\n";
 			echo '						<div class="col-xs-6 center">'."\n";
 			echo '							<div class="team">' . $visitorTeam->city . ' ' . $visitorTeam->team . '</div>'."\n";
@@ -359,7 +349,7 @@ $pickSummary = get_pick_summary($user->userID, $week);
 		if (SHOW_TIEBREAKER_POINTS) {
 			echo '<p><strong>Tie Breaker Points</strong> <input type="text" name="tieBreakerPoints" id="tieBreakerPoints" maxlength="3" size=3 value="' . $tieBreakerPoints . '" /> ' . " << Default is " . DEFAULT_TIEBREAKER_POINTS . "\n";
 		} else {
-                	echo '<input type="hidden" name="tieBreakerPoints" id="tieBreakerPoints" value="0" />' . "\n";
+			echo '<input type="hidden" name="tieBreakerPoints" id="tieBreakerPoints" value="0" />' . "\n";
 		}
 		echo '<p class="noprint"><input type="submit" name="action" value="Submit" /></p>' . "\n";
 		echo '</form>' . "\n";

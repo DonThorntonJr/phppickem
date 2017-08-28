@@ -91,7 +91,7 @@ $sql .= "order by gameTimeEastern, gameID";
 $query = $mysqli->query($sql);
 if ($query->num_rows > 0) {
 	echo '<table class="table table-striped">' . "\n";
-	echo '	<tr><th colspan="6" align="left">Week ' . $week . '</th>';
+	echo '	<tr><th colspan="6" align="left">Week ' . $week . '</th></tr>' . "\n";
 	if (ENABLE_SPREAD)
 		echo '<th>Spread</th>';
 	echo '</tr>' . "\n";

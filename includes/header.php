@@ -8,7 +8,6 @@ header('X-UA-Compatible:IE=Edge,chrome=1'); //IE8 respects this but not the meta
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title><?php echo SITE_NAME . ' ' . SEASON_YEAR; ?></title>
-
 	<base href="<?php echo SITE_URL; ?>" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/all.css" />
@@ -51,6 +50,8 @@ header('X-UA-Compatible:IE=Edge,chrome=1'); //IE8 respects this but not the meta
 								<?php } ?>
 								<li><a href="results.php<?php echo ((!empty($_GET['week'])) ? '?week=' . (int)$_GET['week'] : ''); ?>">Results</a></li>
 								<li><a href="standings.php">Standings</a></li>
+								<!--li><a href="teams.php">Teams</a></li-->
+								<!--li><a href="schedules.php">Schedules</a></li-->
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">NFL News <b class="caret"></b></a>
 									<ul class="dropdown-menu">
@@ -98,3 +99,4 @@ header('X-UA-Compatible:IE=Edge,chrome=1'); //IE8 respects this but not the meta
 			}
 			echo '</div>';
 		}
+		?>
