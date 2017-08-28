@@ -290,9 +290,9 @@ include('includes/column_right.php');
 			if (!empty($teamStreak)) {
 				echo '							<div class="streak">Streak: ' . $teamStreak . '</div>'."\n";
 			}
-			echo '							<div class="team">' . $visitorTeam->city . ' ' . $visitorTeam->team . $awaySpreadStr . '</div>'."\n";
-			echo '							<div class="record">Record: ' . getTeamRecord($visitorTeam->teamID) . '</div>'."\n";
-			echo '							<div class="streak">Streak: ' . getTeamStreak($visitorTeam->teamID) . '</div>'."\n";
+			# echo '							<div class="team">' . $visitorTeam->city . ' ' . $visitorTeam->team . $awaySpreadStr . '</div>'."\n";
+			# echo '							<div class="record">Record: ' . getTeamRecord($visitorTeam->teamID,$week) . '</div>'."\n";
+			# echo '							<div class="streak">Streak: ' . getTeamStreak($visitorTeam->teamID,$week) . '</div>'."\n";
 			echo '						</div>'."\n";
 			echo '						<div class="col-xs-6 center">' . "\n";
 			echo '							<div class="team">' . $homeTeam->city . ' ' . $homeTeam->team . '</div>'."\n";
@@ -304,9 +304,9 @@ include('includes/column_right.php');
 			if (!empty($teamStreak)) {
 				echo '							<div class="streak">Streak: ' . $teamStreak . '</div>'."\n";
 			}
-			echo '							<div class="team">' . $homeTeam->city . ' ' . $homeTeam->team . $homeSpreadStr . '</div>'."\n";
-			echo '							<div class="record">Record: ' . getTeamRecord($homeTeam->teamID) . '</div>'."\n";
-			echo '							<div class="streak">Streak: ' . getTeamStreak($homeTeam->teamID) . '</div>'."\n";
+			# echo '							<div class="team">' . $homeTeam->city . ' ' . $homeTeam->team . $homeSpreadStr . '</div>'."\n";
+			# echo '							<div class="record">Record: ' . getTeamRecord($homeTeam->teamID,$week) . '</div>'."\n";
+			# echo '							<div class="streak">Streak: ' . getTeamStreak($homeTeam->teamID,$week) . '</div>'."\n";
 			echo '						</div>' . "\n";
 			echo '					</div>'."\n";
 			if ($row['expired'] && !ENABLE_LATE_PICKS) {
